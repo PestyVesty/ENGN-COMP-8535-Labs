@@ -19,8 +19,14 @@ def low_rank_approx(A, k):
       X: m-by-n matrix that is an as-close-as-possible approximation of A
          up to rank k
     '''
-    #TODO: Fill your work here
+    u, s, vt = np.linalg.svd(A)
+    u_new = u[:,:k]
+    s_new = np.diag(s[:k])
+    vt_new = vt[:k]
 
+    X =u_new @ vt_new
+    return X
+    
 def constrained_LLS(A, B):
     '''
     inputs:
@@ -29,10 +35,18 @@ def constrained_LLS(A, B):
     returns:
       x: n-diemsional vector that minimises ||Ax||2 subject to ||Bx||2=1 
     '''
-    #TODO: Fill your work here
 
+    eps=0.00000001
+    u, s, vt = np.linalg.svd(B)
+    s+=eps
+    s1=np.diag(s)
+    temp = s1@vt
+    new_matrix = A@temp.T # making sure the matrix is full rank? Didn't catch on
 
+    u2, s2, vt2 = np.linalg.svd(new_matrix)
 
+    x = vt.T@s1@vt2[-1]
+    return x
 ### you can optionally write your own functions like below ###
 
 # def my_func_name(input1, input2, ...):
