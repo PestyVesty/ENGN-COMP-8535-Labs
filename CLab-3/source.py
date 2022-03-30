@@ -212,8 +212,31 @@ def k_means_pp(X, k):
      - centroids:  np.ndarray of shape [k, no_dimensions]
                    centres of initial custers
     '''
-    return None    
-
+    epsilon = 1e-5
+    # Centriods will initially have the same data point location,
+    # hence we use this to record 
+    centroids = []
+    
+    # First centroid
+    rows = X.shape[0]
+    centroids.append(np.random.randint(0, rows))
+    
+    
+    for _ in (1,k):
+        rand_id = np.random.randint(0, rows)
+        
+        # Check if datapoint as been picked before
+        while rand_id in centroids:
+            rand_id = np.random.randint(0, rows)
+        
+        centroids.append(rand_id)
+        
+        # Need to compute the closest distance
+        distances = 
+        for i in centroids:
+            distance = np.linalg.norm(X-X[centroids[0]], axis=1)
+        
+    # then call k-means function
 
 ### you can optionally write your own functions like below ###
 
